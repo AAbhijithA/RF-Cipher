@@ -2,11 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+//Structure for Dynamic Level wise string allocation
 struct DynamicString{
     int Cindex;
     char Carray[];
 };
 
+//Next iteration for Rail Fence Cipher by switching up and down
 void NextIteration(int *itr, int *mov, int *levels){
     if((*mov) == 1){
         if((*itr) == ((*levels) - 1)){
@@ -25,6 +27,11 @@ void NextIteration(int *itr, int *mov, int *levels){
     return;
 }
 
+/*
+Encryption: 
+Works by allocating number of expected characters per level and encrypts it
+It then writes it into "encrypted.txt" file for later use.
+*/
 void Encrypt(){
     int n, levels, itr = 0, mov = 1;
     printf("Enter the size of transfer content you want to write: ");
@@ -73,6 +80,11 @@ void Encrypt(){
     return;
 }
 
+/*
+Decryption: 
+Works by allocating number of expected characters per level (given as input) and decrypts it
+By following the pattern of Rail Fence Algorithm.
+*/
 void Decrypt(){
     int n = 0, itr = 0, mov = 1, Ti = 0;
     FILE *fp = fopen("encrypted.txt","r");
@@ -94,6 +106,7 @@ void Decrypt(){
             encryptedText[itr] = c;
             itr++;
     }
+    fclose(fp);
     printf("Encrypted text is: %s\n",encryptedText);
     printf("Enter correct key to decrypt: ");
     int levels;
@@ -129,8 +142,10 @@ void Decrypt(){
             NextIteration(&itr,&mov,&levels);
     }
     printf("Decrypted Text is: %s",decryptedText);
+    return;
 }
 
+//Starts the program
 int main(){
     int choice;
     while(1){
@@ -146,3 +161,8 @@ int main(){
     printf("\n--------------------------------------------------\n");
     return 0;
 }
+/*
+Overall performance with size of transfer text 'N' 
+Time Complexity: O(N)
+Space Complexity: O(N)
+*/
