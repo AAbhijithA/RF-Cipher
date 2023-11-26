@@ -7,6 +7,24 @@ struct DynamicString{
     char Carray[];
 };
 
+void NextIteration(int *itr, int *mov, int *levels){
+    if((*mov) == 1){
+        if((*itr) == ((*levels) - 1)){
+            (*itr)--;
+            (*mov) = 0;
+        }
+        else (*itr)++;
+    }
+    else{
+        if((*itr) == 0){
+            (*itr)++;
+            (*mov) = 1;
+        }
+        else (*itr)--;
+    }
+    return;
+}
+
 void Encrypt(){
     int n, levels, itr = 0, mov = 1;
     printf("Enter the size of transfer content you want to write: ");
@@ -21,20 +39,7 @@ void Encrypt(){
     for(int i=0;i<levels;i++) LevelAccomodation[i] = 0;
     for(int i=0;i<n;i++){
             LevelAccomodation[itr] += 1;
-            if(mov == 1){
-                if(itr == levels - 1){
-                    itr--;
-                    mov = 0;
-                }
-                else itr++;
-            }
-            else{
-                if(itr == 0){
-                    itr++;
-                    mov = 1;
-                }
-                else itr--;
-            }
+            NextIteration(&itr,&mov,&levels);
     }
     struct DynamicString *RailwayFence[levels];
     for(int i=0;i<levels;i++){
@@ -45,20 +50,7 @@ void Encrypt(){
     for(int i=0;i<n;i++){
             RailwayFence[itr]->Carray[RailwayFence[itr]->Cindex] = transferText[i];
             RailwayFence[itr]->Cindex += 1;
-            if(mov == 1){
-                if(itr == levels - 1){
-                    itr--;
-                    mov = 0;
-                }
-                else itr++;
-            }
-            else{
-                if(itr == 0){
-                    itr++;
-                    mov = 1;
-                }
-                else itr--;
-            }
+            NextIteration(&itr,&mov,&levels);
     }
     printf("Encrypted Text is: ");
     char encryptedText[n];
@@ -111,20 +103,7 @@ void Decrypt(){
     for(int i=0;i<levels;i++) LevelAccomodation[i] = 0;
     for(int i=0;i<n;i++){
             LevelAccomodation[itr] += 1;
-            if(mov == 1){
-                if(itr == levels - 1){
-                    itr--;
-                    mov = 0;
-                }
-                else itr++;
-            }
-            else{
-                if(itr == 0){
-                    itr++;
-                    mov = 1;
-                }
-                else itr--;
-            }
+            NextIteration(&itr,&mov,&levels);
     }
     struct DynamicString *RFDecrypt[levels];
     for(int i=0;i<levels;i++){
@@ -147,20 +126,7 @@ void Decrypt(){
     for(int i=0;i<n;i++){
             decryptedText[i] = RFDecrypt[itr]->Carray[RFDecrypt[itr]->Cindex];
             RFDecrypt[itr]->Cindex += 1;
-            if(mov == 1){
-                if(itr == levels - 1){
-                    itr--;
-                    mov = 0;
-                }
-                else itr++;
-            }
-            else{
-                if(itr == 0){
-                    itr++;
-                    mov = 1;
-                }
-                else itr--;
-            }
+            NextIteration(&itr,&mov,&levels);
     }
     printf("Decrypted Text is: %s",decryptedText);
 }
@@ -179,5 +145,4 @@ int main(){
     }
     printf("\n--------------------------------------------------\n");
     return 0;
-
 }
