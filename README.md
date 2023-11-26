@@ -4,4 +4,4 @@
 ![](Railway_Fence_op.png)
 
 
-### (Note: The terminal output has some issues showing the o/p of reading & writing the encrypted message due to spaces ignore it)
+### (Note: The terminal output has some issues showing the o/p of reading & writing the encrypted message due to spaces ignore it (;-;))
